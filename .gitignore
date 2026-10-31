@@ -1,0 +1,16 @@
+# Maxfiy sozlamalar — hech qachon commit qilinmasin
+.env
+config.json
+chachchu_memory.json
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# Vaqtinchalik audio fayllar
+*.mp3
+*.wav
