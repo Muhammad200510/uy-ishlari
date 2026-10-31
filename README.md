@@ -25,6 +25,17 @@ bash setup.sh          # kutubxonalar + .env + config.json
 ./run.sh               # ishga tushadi
 ```
 
+**Windows 11:**
+
+```powershell
+# PowerShell'ni loyiha papkasida oching, so'ng:
+powershell -ExecutionPolicy Bypass -File .\setup.ps1
+notepad .env            # ANTHROPIC_API_KEY ni qo'ying
+.\run.ps1               # ishga tushadi
+```
+
+> Yoki shunchaki `setup.bat` ni ikki marta bosing, keyin `run.bat`.
+
 **Android (Termux):** pastdagi "Android" bo'limiga qarang.
 
 ---
@@ -120,6 +131,38 @@ Endi Chach-Chu ga "Telegramga 'Salom' deb yoz" desangiz, u yuboradi (tasdig'ingi
 
 ---
 
+## 🪟 Windows 11'da ishlatish
+
+### 1. Python o'rnating
+
+[python.org/downloads](https://www.python.org/downloads/) dan Python 3.9+ ni yuklab o'rnating.
+**Muhim:** o'rnatuvchining birinchi oynasida **"Add python.exe to PATH"** katagini belgilang.
+
+### 2. Loyihani oching
+
+ZIP'ni chiqarib oling (yoki `git clone`), papkani oching va u yerda **PowerShell** oching
+(papkada bo'sh joyni Shift+o'ng tugma → "Open PowerShell window here").
+
+### 3. O'rnating va ishga tushiring
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\setup.ps1
+notepad .env          # ANTHROPIC_API_KEY=sk-ant-... ni yozib saqlang
+.\run.ps1             # matnli rejim
+.\run.ps1 --voice     # ovozli rejim
+```
+
+> **Oson yo'l:** `setup.bat` ni ikki marta bosing (o'rnatadi), keyin `run.bat` ni bosing.
+
+**Windows'da ovoz:** ovoz kutubxonalari uchun o'rnatishdan oldin
+`$env:CHACHCHU_VOICE="1"` qo'ying yoki keyin qo'lda:
+```powershell
+.\.venv\Scripts\python.exe -m pip install -r requirements-voice.txt
+```
+Windows'da `PyAudio` odatda tayyor "wheel" sifatida o'rnatiladi (qo'shimcha sozlash shart emas).
+
+---
+
 ## 📱 Android'da ishlatish (Termux)
 
 Chach-Chu Android telefonda **Termux** orqali to'g'ridan-to'g'ri ishlaydi — ovozli ham.
@@ -195,9 +238,10 @@ Shunda telefon mikrofoniga gapirasiz — Chach-Chu javobni o'zbekcha aytib berad
 ## Loyiha tuzilishi
 
 ```
-setup.sh               # avtomatik o'rnatish (Linux/macOS)
+setup.sh / run.sh      # Linux/macOS o'rnatish va ishga tushirish
 setup-termux.sh        # Android/Termux o'rnatish
-run.sh                 # ishga tushirish
+setup.ps1 / run.ps1    # Windows (PowerShell)
+setup.bat / run.bat    # Windows (ikki marta bosish)
 chachchu/
 ├── __main__.py        # kirish nuqtasi (CLI)
 ├── assistant.py       # asosiy muloqot sikli
@@ -212,6 +256,42 @@ chachchu/
     ├── memory.py      # oddiy eslab qolish
     └── social.py      # Telegram va boshqa tarmoqlar
 ```
+
+---
+
+## ✅ Nimalar sinovdan o'tgan / ❌ nimalar hali tekshirilmagan
+
+Loyiha **Linux muhitida (Python 3.13)** avtomatik tekshiruvlardan o'tkazildi. Muallifda
+haqiqiy Android yoki Windows qurilma yo'q edi, shuning uchun quyidagilarni ajratib
+ko'rsatamiz:
+
+### ✅ Amalda sinovdan o'tgan (Linux, Python 3.13)
+- Barcha Python fayllari xatosiz kompilyatsiya bo'ladi (`py_compile`).
+- Modullar importi va 8 ta tool ro'yxatga olinishi.
+- Tool mantig'i: `get_datetime`, `remember` / `recall_memory` haqiqatan ishlaydi.
+- Ruxsat tizimi: `auto_allow` o'tadi, `always_confirm` so'raydi, headless rejim xavfli
+  amalni rad etadi.
+- Telegram sozlanmaganda xushmuomala xabar qaytishi.
+- CLI: `--help`, kalitsiz holatda to'g'ri xato xabari.
+- `setup.sh`, `setup-termux.sh`, `run.sh` skriptlari sintaksisi (`bash -n`).
+- `speech.py` platformani aniqlab, kutubxona bo'lmasa matnli rejimga tushishi.
+
+### ❌ Hali haqiqiy qurilmada tekshirilMAGAN
+- **Haqiqiy Claude API chaqiruvi** — ishlashi uchun sizning `ANTHROPIC_API_KEY` kerak
+  (muallifda kalit yo'q edi). Kod rasmiy `anthropic` SDK bo'yicha yozilgan.
+- **Android/Termux** — `termux-speech-to-text` va `termux-tts-speak` haqiqiy telefonda
+  sinalmagan (Termux:API va qurilma kerak). Kod to'g'ri chaqiradi, lekin ovoz sifati
+  qurilmaning o'zbekcha TTS/STT qo'llashiga bog'liq.
+- **Windows** — `.ps1`/`.bat` skriptlari va `PyAudio`/`playsound` ovozi Windows'da
+  real ishga tushirilmagan (Windows muhiti yo'q edi).
+- **Ovozli rejim** (desktop mikrofon) — mikrofon bilan jonli sinalmagan.
+- **Telegram'ga real yuborish** — bot token kerak, jonli sinalmagan.
+- **iPhone/Android bridge** — HTTP endpoint mantig'i yozilgan, lekin qurilma bilan
+  uchidan-uchiga sinalmagan.
+
+> Qisqasi: **dastur mantig'i va tuzilishi ishlaydi va tekshirilgan**; **qurilmaga bog'liq
+> qismlar (ovoz, API, Telegram)** sizning kalitingiz/qurilmangizda birinchi marta jonli
+> ishga tushganda tasdiqlanadi. Muammo chiqsa, menga xabar xatosini yuboring — tuzataman.
 
 ---
 
