@@ -1,0 +1,23 @@
+{
+  "name": "Chach-Chu",
+  "model": "claude-opus-5-5",
+  "voice": {
+    "enabled": false,
+    "stt_language": "uz-UZ",
+    "tts_language": "uz"
+  },
+  "permissions": {
+    "auto_allow": ["get_datetime", "search_web", "recall_memory", "remember"],
+    "always_confirm": ["run_shell", "open_app", "open_url", "send_telegram", "post_social"]
+  },
+  "telegram": {
+    "bot_token": "",
+    "default_chat_id": ""
+  },
+  "bridge": {
+    "enabled": false,
+    "host": "0.0.0.0",
+    "port": 8787,
+    "token": "o-zgartiring-meni"
+  }
+}

@@ -1,0 +1,5 @@
+# Chach-Chu — asosiy kutubxonalar
+anthropic>=1.0.0
+python-dotenv>=1.0.0
+
+# Ovozli rejim uchun qo'shimcha kutubxonalar requirements-voice.txt da.

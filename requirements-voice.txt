@@ -1,0 +1,10 @@
+# Chach-Chu — ovozli rejim uchun (ixtiyoriy)
+#
+# Eslatma: PyAudio ba'zi tizimlarda qo'shimcha o'rnatishni talab qiladi:
+#   macOS:   brew install portaudio
+#   Ubuntu:  sudo apt-get install portaudio19-dev
+#   Windows: odatda pip o'zi o'rnatadi
+SpeechRecognition>=3.10.0
+PyAudio>=0.2.13
+gTTS>=2.5.0
+playsound==1.2.2
