@@ -15,7 +15,21 @@
 
 ---
 
-## O'rnatish
+## ⚡ Tez boshlash (avtomatik)
+
+**Kompyuter (Linux / macOS):**
+
+```bash
+bash setup.sh          # kutubxonalar + .env + config.json
+# .env ni ochib ANTHROPIC_API_KEY ni qo'ying
+./run.sh               # ishga tushadi
+```
+
+**Android (Termux):** pastdagi "Android" bo'limiga qarang.
+
+---
+
+## O'rnatish (qo'lda)
 
 ### 1. Python (3.9+) kerak
 
@@ -106,6 +120,60 @@ Endi Chach-Chu ga "Telegramga 'Salom' deb yoz" desangiz, u yuboradi (tasdig'ingi
 
 ---
 
+## 📱 Android'da ishlatish (Termux)
+
+Chach-Chu Android telefonda **Termux** orqali to'g'ridan-to'g'ri ishlaydi — ovozli ham.
+
+### 1. Ilovalarni o'rnating (F-Droid'dan)
+
+- **Termux**: https://f-droid.org/packages/com.termux/
+- **Termux:API**: https://f-droid.org/packages/com.termux.api/  ← ovoz uchun shart
+
+> Play Store'dagi Termux eski — **F-Droid** versiyasini ishlating.
+
+### 2. Loyihani oling va o'rnating
+
+Termux ichida:
+
+```bash
+pkg install git -y
+git clone <loyiha-havolasi> uy-ishlari
+cd uy-ishlari
+bash setup-termux.sh
+```
+
+### 3. API kalitni qo'ying
+
+```bash
+nano .env      # ANTHROPIC_API_KEY=sk-ant-... ni yozing
+```
+
+### 4. Ishga tushiring
+
+```bash
+python -m chachchu            # matnli rejim
+python -m chachchu --voice    # ovozli (termux-api orqali o'zbekcha)
+```
+
+**Ovoz qanday ishlaydi (Android):**
+- Eshitish — `termux-speech-to-text` (qurilmangiz Google nutq tanish tizimi; o'zbekcha
+  til qurilma sozlamalarida yoqilgan bo'lsa yaxshi ishlaydi).
+- Gapirish — `termux-tts-speak -l uz` (qurilmaning TTS dvigateli). Agar o'zbekcha ovoz
+  bo'lmasa, dastur avtomatik gTTS'ga o'tadi.
+
+> **Eslatma:** Android'da `open_app`/`run_shell` kabi tizim buyruqlari Termux doirasida
+> ishlaydi (butun telefonni emas). Telefon funksiyalari uchun `termux-api` buyruqlarini
+> (masalan `termux-sms-send`, `termux-battery-status`) `run_shell` orqali chaqirtirsangiz
+> bo'ladi — lekin har biri ruxsat so'raydi.
+
+### Telefonni doim yoqiq tutish (ixtiyoriy)
+
+```bash
+termux-wake-lock       # uyqu rejimida ham ishlab tursin
+```
+
+---
+
 ## iPhone (Apple Shortcuts) bilan integratsiya
 
 iOS uchinchi tomon ilovalariga telefonni to'liq boshqarishga ruxsat bermaydi, lekin
@@ -127,11 +195,14 @@ Shunda telefon mikrofoniga gapirasiz — Chach-Chu javobni o'zbekcha aytib berad
 ## Loyiha tuzilishi
 
 ```
+setup.sh               # avtomatik o'rnatish (Linux/macOS)
+setup-termux.sh        # Android/Termux o'rnatish
+run.sh                 # ishga tushirish
 chachchu/
 ├── __main__.py        # kirish nuqtasi (CLI)
 ├── assistant.py       # asosiy muloqot sikli
 ├── brain.py           # Claude API + tool-use mantiq
-├── speech.py          # ovoz: nutqni matnga / matnni nutqqa (ixtiyoriy)
+├── speech.py          # ovoz: Termux (Android) va Desktop backendlari
 ├── permissions.py     # ruxsat so'rash mantig'i
 ├── bridge.py          # iPhone/Shortcuts uchun HTTP server
 └── tools/
